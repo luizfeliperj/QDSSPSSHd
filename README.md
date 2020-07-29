@@ -1,11 +1,37 @@
 
-## Go and the Secure Shell protocol
+## QDSSPSSHd: Quick dumb simple stupid passwordless ssh daemon meant for Singularity Containers
 
-http://blog.gopheracademy.com/go-and-ssh/
+   I was in need to run a ssh daemon inside a Singularity container, but OpenSSH requires elevated
+ privileges and singularity provides only hard-to-use way of obtaining such.
 
-See directories for SSH examples 
+   Given that motivation, I stopped by the upstream mini SSH daemon author github and it did almost 
+ everything was ok, but not everything. Ex: inserting a certificate inside a read-only container 
+ image is harder than I imagine, also, I was looking for an exec environmnet and not a shell only 
+ ssh session.
+
+   So, QDSSPSSHd was born, or better, modified and ajusted to my needs. The original author blog is
+ http://blog.gopheracademy.com/go-and-ssh/.
+
+### How to build it?
+
+-  go get -u -v github.com/kr/pty
+-  go get -u -v golang.org/x/crypto/ssh
+
+-  go build server.go
+
+### How to use it?
+
+#### On Singularity
+
+-  singularity run image.sif server
+ 
+#### On Client
+
+-  ssh -p 2200 localhost
 
 #### MIT License
+
+Copyright © 2020 Luiz Felipe Silva &lt;dev@luizfelipe.eng.br&gt;
 
 Copyright © 2014 Jaime Pillora &lt;dev@jpillora.com&gt;
 
